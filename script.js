@@ -13,7 +13,7 @@
    du visiteur (fallback mailto) : rien n'est cassé.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-const WEB3FORMS_ACCESS_KEY = 'VOTRE_CLE_WEB3FORMS';  // ← À remplir (clé Web3Forms de yannickmay@orange.fr)
+const WEB3FORMS_ACCESS_KEY = '5b83ee11-93fe-422a-b4c6-e86854ca40ee';  // Clé Web3Forms de yannickmay@orange.fr
 const DESTINATAIRE_EMAIL   = 'yannickmay@orange.fr'; // Email de Yannick
 
 /* ────────────────────────────── Preloader ──────────────────────────────── */
