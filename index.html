@@ -23,6 +23,16 @@
     <div class="preloader-bar"><div class="preloader-fill"></div></div>
   </div>
 </div>
+<script>
+  /* Filet de sécurité inline : cache le préloader même si script.js est ancien/en cache. */
+  (function () {
+    function hide() { var p = document.getElementById('preloader'); if (p) p.classList.add('hidden'); }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () { setTimeout(hide, 1200); });
+    } else { setTimeout(hide, 1200); }
+    setTimeout(hide, 3500);
+  })();
+</script>
 
 <!-- ════════════════════════════════ HEADER ═════════════════════════════════ -->
 <header id="header">
@@ -713,7 +723,7 @@
   <button class="lb-nav lb-next" id="lbNext"><i class="fas fa-chevron-right"></i></button>
 </div>
 
-<script src="smy-content.js"></script>
-<script src="script.js"></script>
+<script src="smy-content.js?v=2"></script>
+<script src="script.js?v=2"></script>
 </body>
 </html>
