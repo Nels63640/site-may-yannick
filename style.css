@@ -1612,6 +1612,7 @@ h3 { font-size: 1.2rem; }
 
 @media (max-width: 900px) {
   .about-grid, .zone-grid, .devis-grid { grid-template-columns: 1fr; gap: 40px; }
+  .zone .zone-cards { grid-template-columns: 1fr; gap: 16px; }
   .about-photo { height: 320px; }
   .zone-visual { display: none; }
   .contact-grid { grid-template-columns: repeat(2, 1fr); }
