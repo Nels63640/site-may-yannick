@@ -1,0 +1,15 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
+
+# Python (script update_rates.py)
+__pycache__/
+*.pyc
+.venv/
+venv/

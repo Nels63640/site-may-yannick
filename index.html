@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SAS MAY YANNICK - Plombier Chauffagiste dans les Combrailles. Plus de 20 ans d'expérience. Certifié RGE Qualipac Qualibois PG Professionnel du Gaz Chauffage +. Salle de bain clé en main.">
+  <title>SAS MAY YANNICK – Plombier Chauffagiste | Les Combrailles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════ PRELOADER ═══════════════════════════════ -->
+<div id="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-logo">
+      <img src="logo.png" alt="SAS MAY YANNICK" class="preloader-logo-img">
+    </div>
+    <p class="preloader-name">SAS MAY YANNICK</p>
+    <div class="preloader-bar"><div class="preloader-fill"></div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ HEADER ═════════════════════════════════ -->
+<header id="header">
+  <nav class="navbar container">
+    <a href="#home" class="logo">
+      <img src="logo.png" alt="SAS MAY YANNICK" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="logo-fallback" style="display:none">
+        <div class="logo-icon"><i class="fas fa-wrench"></i></div>
+        <div class="logo-text">
+          <span class="logo-name">MAY YANNICK</span>
+          <span class="logo-tag">Plombier · Chauffagiste</span>
+        </div>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#realisations">Réalisations</a></li>
+      <li><a href="#zone">Zone</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#devis" class="nav-cta">Devis gratuit</a></li>
+    </ul>
+    <a href="tel:+33668635913" class="nav-phone">
+      <i class="fas fa-phone-alt"></i>
+      <span>06 68 63 59 13</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu mobile">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════ HERO ══════════════════════════════════ -->
+<section id="home" class="hero">
+  <div class="hero-bg">
+    <div class="hero-gradient"></div>
+    <div class="hero-shapes">
+      <div class="shape s1"></div>
+      <div class="shape s2"></div>
+      <div class="shape s3"></div>
+      <div class="shape s4"></div>
+      <div class="shape s5"></div>
+    </div>
+    <div class="hero-particles" id="particles"></div>
+  </div>
+  <div class="hero-content container">
+    <div class="hero-badge" data-anim="fade-down">
+      <i class="fas fa-shield-alt"></i>
+      <span data-content="hero-badge">Certifié RGE · Plus de 20 ans d'expérience</span>
+    </div>
+    <h1 class="hero-title" data-anim="fade-up">
+      Votre Expert<br>
+      <span class="gradient-text">Plombier&nbsp;Chauffagiste</span><br>
+      <span class="hero-sub">dans <span id="typedText" class="typed-word"></span><span class="typed-cursor">|</span></span>
+    </h1>
+    <p class="hero-desc" data-content="hero-desc" data-anim="fade-up" data-delay="200">
+      Installation, entretien, dépannage et rénovation de salles de bain clé en main.<br>
+      <strong>SAS MAY YANNICK</strong>, votre artisan de confiance dans les Combrailles.
+    </p>
+    <div class="hero-actions" data-anim="fade-up" data-delay="350">
+      <a href="#devis" class="btn btn-primary btn-lg">
+        <i class="fas fa-file-alt"></i> Demander un devis
+      </a>
+      <a href="tel:+33668635913" class="btn btn-outline-white btn-lg">
+        <i class="fas fa-phone-alt"></i> Appeler maintenant
+      </a>
+    </div>
+    <div class="hero-certif-tags" data-anim="fade-up" data-delay="500">
+      <span><i class="fas fa-check-circle"></i> RGE</span>
+      <span><i class="fas fa-check-circle"></i> Qualipac</span>
+      <span><i class="fas fa-check-circle"></i> Qualibois</span>
+      <span><i class="fas fa-check-circle"></i> PG Professionnel du Gaz</span>
+      <span><i class="fas fa-check-circle"></i> Chauffage +</span>
+    </div>
+  </div>
+  <a href="#services" class="hero-scroll-hint">
+    <span>Découvrir</span>
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+  </a>
+</section>
+
+<!-- ═══════════════════════════════ STATS BAR ════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="container stats-grid">
+    <div class="stat-item" data-reveal>
+      <i class="fas fa-hard-hat stat-ico"></i>
+      <div>
+        <div class="stat-val"><span class="count" data-target="20">0</span><span>+</span></div>
+        <div class="stat-lbl">Ans d'expérience</div>
+      </div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item" data-reveal data-delay="100">
+      <i class="fas fa-users stat-ico"></i>
+      <div>
+        <div class="stat-val"><span class="count" data-target="500">0</span><span>+</span></div>
+        <div class="stat-lbl">Clients satisfaits</div>
+      </div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item" data-reveal data-delay="200">
+      <i class="fas fa-tools stat-ico"></i>
+      <div>
+        <div class="stat-val"><span class="count" data-target="1000">0</span><span>+</span></div>
+        <div class="stat-lbl">Projets réalisés</div>
+      </div>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item" data-reveal data-delay="300">
+      <i class="fas fa-award stat-ico"></i>
+      <div>
+        <div class="stat-val"><span class="count" data-target="5">0</span></div>
+        <div class="stat-lbl">Certifications RGE</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ SERVICES ════════════════════════════════ -->
+<section id="services" class="services">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="tag">Ce que nous faisons</span>
+      <h2>Nos Services</h2>
+      <p>Une gamme complète de prestations en plomberie, chauffage et rénovation pour les particuliers et professionnels des Combrailles.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="svc-card" data-reveal data-delay="0">
+        <div class="svc-icon-wrap"><div class="svc-icon"><i class="fas fa-tint"></i></div></div>
+        <h3>Plomberie Générale</h3>
+        <p>Installation, rénovation et réparation de tous équipements sanitaires. Robinetterie, tuyauterie, évacuations.</p>
+        <ul>
+          <li><i class="fas fa-check"></i> Installation & remplacement</li>
+          <li><i class="fas fa-check"></i> Détection de fuites</li>
+          <li><i class="fas fa-check"></i> Débouchage canalisations</li>
+        </ul>
+        <a href="#devis" class="svc-link">Devis plomberie <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="svc-card featured" data-reveal data-delay="100">
+        <div class="svc-badge">Le + demandé</div>
+        <div class="svc-icon-wrap"><div class="svc-icon"><i class="fas fa-fire-alt"></i></div></div>
+        <h3>Chauffage</h3>
+        <p>Conception et installation de systèmes de chauffage performants. Économisez sur votre facture énergétique.</p>
+        <ul>
+          <li><i class="fas fa-check"></i> Pompes à chaleur (Qualipac)</li>
+          <li><i class="fas fa-check"></i> Chaudières gaz / bois / fioul</li>
+          <li><i class="fas fa-check"></i> Entretien & contrats</li>
+        </ul>
+        <a href="#devis" class="svc-link">Devis chauffage <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="svc-card" data-reveal data-delay="200">
+        <div class="svc-icon-wrap"><div class="svc-icon"><i class="fas fa-bath"></i></div></div>
+        <h3>Salle de Bain Clé en Main</h3>
+        <p>De la conception à la finition, nous gérons votre projet complet de rénovation de salle de bain.</p>
+        <ul>
+          <li><i class="fas fa-check"></i> Conception & design</li>
+          <li><i class="fas fa-check"></i> Plomberie & carrelage</li>
+          <li><i class="fas fa-check"></i> Finitions haut de gamme</li>
+        </ul>
+        <a href="#devis" class="svc-link">Devis salle de bain <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="svc-card urgent" data-reveal data-delay="0">
+        <div class="svc-icon-wrap"><div class="svc-icon"><i class="fas fa-bolt"></i></div></div>
+        <h3>Dépannage Urgent</h3>
+        <p>Fuite, panne de chaudière, canalisation bouchée ? J'interviens rapidement pour résoudre votre urgence.</p>
+        <ul>
+          <li><i class="fas fa-check"></i> Intervention rapide</li>
+          <li><i class="fas fa-check"></i> Disponible en urgence</li>
+          <li><i class="fas fa-check"></i> Devis transparent</li>
+        </ul>
+        <a href="tel:+33668635913" class="svc-link emergency-link"><i class="fas fa-phone-alt"></i> Appeler maintenant</a>
+      </div>
+
+      <div class="svc-card" data-reveal data-delay="100">
+        <div class="svc-icon-wrap"><div class="svc-icon"><i class="fas fa-leaf"></i></div></div>
+        <h3>Pompes à Chaleur</h3>
+        <p>Installateur certifié RGE Qualipac. Profitez des aides MaPrimeRénov' pour votre transition énergétique.</p>
+        <ul>
+          <li><i class="fas fa-check"></i> PAC air/eau & air/air</li>
+          <li><i class="fas fa-check"></i> Aide MaPrimeRénov'</li>
+          <li><i class="fas fa-check"></i> TVA à 5,5%</li>
+        </ul>
+        <a href="#devis" class="svc-link">Devis pompe à chaleur <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="svc-card" data-reveal data-delay="200">
+        <div class="svc-icon-wrap"><div class="svc-icon"><i class="fas fa-snowflake"></i></div></div>
+        <h3>Climatisation</h3>
+        <p>Installation et entretien de systèmes de climatisation pour votre confort en été comme en hiver.</p>
+        <ul>
+          <li><i class="fas fa-check"></i> Split & multi-split</li>
+          <li><i class="fas fa-check"></i> Réversible (chaud/froid)</li>
+          <li><i class="fas fa-check"></i> Entretien annuel</li>
+        </ul>
+        <a href="#devis" class="svc-link">Devis climatisation <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ ABOUT ═════════════════════════════════ -->
+<section id="about" class="about">
+  <div class="container">
+    <div class="about-grid" style="grid-template-columns:1fr">
+      <div class="about-content" data-reveal style="text-align:center;max-width:820px;margin:0 auto">
+        <span class="tag">À propos</span>
+        <h2>SAS MAY YANNICK<br><span class="gradient-text">Votre Artisan de Confiance</span></h2>
+        <p class="about-lead" data-content="about-lead">Artisan plombier chauffagiste dans les Combrailles depuis plus de 20 ans, Yannick MAY met son expertise au service de vos projets de plomberie, chauffage et rénovation.</p>
+        <p data-content="about-body">Je m'engage à vous fournir des prestations de qualité dans les délais convenus et au meilleur rapport qualité-prix. Mon travail soigné et mon sens du détail font ma réputation auprès des particuliers et professionnels de la région.</p>
+
+        <div class="about-feats about-feats--row">
+          <div class="about-feat">
+            <div class="feat-icon"><i class="fas fa-certificate"></i></div>
+            <div>
+              <h4 data-content="feat1-title">5 Certifications RGE</h4>
+              <p data-content="feat1-desc">Installateur reconnu — vos travaux ouvrent droit aux aides de l'État (MaPrimeRénov', CEE, TVA 5,5%)</p>
+            </div>
+          </div>
+          <div class="about-feat">
+            <div class="feat-icon"><i class="fas fa-map-marked-alt"></i></div>
+            <div>
+              <h4 data-content="feat2-title">Artisan du Territoire</h4>
+              <p data-content="feat2-desc">Basé dans les Combrailles, je connais parfaitement la région et ses spécificités</p>
+            </div>
+          </div>
+          <div class="about-feat">
+            <div class="feat-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+            <div>
+              <h4 data-content="feat3-title">Devis Gratuit & Transparent</h4>
+              <p data-content="feat3-desc">Chaque projet commence par un devis détaillé, sans surprise ni engagement</p>
+            </div>
+          </div>
+        </div>
+        <a href="#devis" class="btn btn-primary">
+          <i class="fas fa-file-alt"></i> Demander un devis gratuit
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ CERTIFICATIONS ════════════════════════════ -->
+<section id="certifications" class="certifications">
+  <div class="section-particles" id="certifRain"></div>
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="tag">Qualité garantie</span>
+      <h2>Certifications & Labels</h2>
+      <p>Reconnu Garant de l'Environnement (RGE), mes certifications vous ouvrent l'accès aux aides financières de l'État pour vos travaux de rénovation énergétique.</p>
+    </div>
+
+    <div class="rge-main" data-reveal>
+      <div class="rge-logo-wrap">
+        <img src="certifs/rge.avif" alt="RGE - Reconnu Garant de l'Environnement" class="rge-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="rge-icon-wrap" style="display:none"><i class="fas fa-certificate"></i></div>
+      </div>
+      <div class="rge-text">
+        <h3 data-content="rge-title">Reconnu Garant de l'Environnement — RGE</h3>
+        <p data-content="rge-desc">La mention RGE vous permet de bénéficier de <strong>MaPrimeRénov'</strong>, des <strong>Certificats d'Économies d'Énergie (CEE)</strong> et d'une <strong>TVA réduite à 5,5%</strong> sur vos travaux d'efficacité énergétique.</p>
+      </div>
+    </div>
+
+    <div class="certifs-grid">
+      <div class="certif-card" data-reveal data-delay="0">
+        <div class="certif-logo-wrap">
+          <img src="certifs/qualipac.png" alt="Qualipac RGE" class="certif-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="certif-icon qualipac" style="display:none"><i class="fas fa-wind"></i></div>
+        </div>
+        <h3 data-content="certif1-title">Qualipac</h3>
+        <p data-content="certif1-desc">Installation de <strong>pompes à chaleur</strong>. Éligible MaPrimeRénov' pour les PAC air/eau et air/air.</p>
+        <div class="certif-tag-ok"><i class="fas fa-check-circle"></i> MaPrimeRénov'</div>
+      </div>
+      <div class="certif-card" data-reveal data-delay="100">
+        <div class="certif-logo-wrap">
+          <img src="certifs/qualibois.png" alt="Qualibois RGE" class="certif-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="certif-icon qualibois" style="display:none"><i class="fas fa-fire-alt"></i></div>
+        </div>
+        <h3 data-content="certif2-title">Qualibois</h3>
+        <p data-content="certif2-desc">Appareils à <strong>combustible bois</strong> : poêles, inserts, chaudières bois et granulés.</p>
+        <div class="certif-tag-ok"><i class="fas fa-check-circle"></i> MaPrimeRénov'</div>
+      </div>
+      <div class="certif-card" data-reveal data-delay="200">
+        <div class="certif-logo-wrap">
+          <img src="certifs/pg.png" alt="PG Professionnel du Gaz" class="certif-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="certif-icon qualigaz" style="display:none"><i class="fas fa-burn"></i></div>
+        </div>
+        <h3 data-content="certif3-title">PG Professionnel du Gaz</h3>
+        <p data-content="certif3-desc">Installations au <strong>gaz</strong> : chaudières gaz naturel, propane, et tous appareils certifiés.</p>
+        <div class="certif-tag-ok"><i class="fas fa-check-circle"></i> MaPrimeRénov'</div>
+      </div>
+      <div class="certif-card" data-reveal data-delay="300">
+        <div class="certif-logo-wrap">
+          <img src="certifs/chauffageplus.png" alt="Chauffage + RGE" class="certif-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="certif-icon qualifioul" style="display:none"><i class="fas fa-fire"></i></div>
+        </div>
+        <h3 data-content="certif4-title">Chauffage +</h3>
+        <p data-content="certif4-desc">Installations au <strong>fioul</strong> et remplacement par des équipements plus performants.</p>
+        <div class="certif-tag-ok"><i class="fas fa-check-circle"></i> Aides CEE</div>
+      </div>
+    </div>
+
+    <div class="aids-banner" data-reveal>
+      <div class="aids-left">
+        <i class="fas fa-piggy-bank"></i>
+        <div>
+          <h3>Profitez des aides de l'État</h3>
+          <p>Grâce à mes certifications RGE, vos travaux peuvent être financés jusqu'à <strong>70%</strong> par MaPrimeRénov' et les CEE. Je vous accompagne dans vos démarches.</p>
+        </div>
+      </div>
+      <a href="simulateur.html" class="btn btn-white">Estimer mes aides <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ RÉALISATIONS ═══════════════════════════════ -->
+<section id="realisations" class="realisations">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="tag">Notre travail</span>
+      <h2>Nos Réalisations</h2>
+      <p>Quelques chantiers réalisés dans les Combrailles et le Puy-de-Dôme.</p>
+    </div>
+    <div class="gallery-filters" data-reveal>
+      <button class="filter-btn active" data-filter="all">Tout voir</button>
+      <button class="filter-btn" data-filter="chauffage">Chauffage</button>
+      <button class="filter-btn" data-filter="plomberie">Plomberie</button>
+    </div>
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gal-item" data-cat="chauffage" data-reveal data-delay="0">
+        <img src="IMG_6303.jpeg" alt="Pompe à chaleur air/eau">
+        <div class="gal-overlay">
+          <div class="gal-info"><h4>PAC Air/Eau</h4><p>Combrailles · 2024</p></div>
+          <button class="gal-zoom" data-title="PAC Air/Eau" data-loc="Combrailles · 2024" data-img="IMG_6303.jpeg"><i class="fas fa-expand-alt"></i></button>
+        </div>
+      </div>
+      <div class="gal-item large" data-cat="chauffage" data-reveal data-delay="100">
+        <img src="IMG_6740.jpeg" alt="Installation PAC tertiaire Toshiba">
+        <div class="gal-overlay">
+          <div class="gal-info"><h4>Installation PAC Tertiaire</h4><p>Puy-de-Dôme · 2024</p></div>
+          <button class="gal-zoom" data-title="Installation PAC Tertiaire" data-loc="Puy-de-Dôme · 2024" data-img="IMG_6740.jpeg"><i class="fas fa-expand-alt"></i></button>
+        </div>
+      </div>
+      <div class="gal-item" data-cat="chauffage" data-reveal data-delay="200">
+        <img src="IMG_3711.jpeg" alt="PAC intérieure et ballon tampon">
+        <div class="gal-overlay">
+          <div class="gal-info"><h4>PAC & Ballon Tampon</h4><p>Combrailles · 2024</p></div>
+          <button class="gal-zoom" data-title="PAC & Ballon Tampon" data-loc="Combrailles · 2024" data-img="IMG_3711.jpeg"><i class="fas fa-expand-alt"></i></button>
+        </div>
+      </div>
+      <div class="gal-item" data-cat="chauffage" data-reveal data-delay="0">
+        <img src="IMG_8060.jpeg" alt="Chaudière à granulés Fröling">
+        <div class="gal-overlay">
+          <div class="gal-info"><h4>Chaudière à Granulés</h4><p>Pontaumur · 2024</p></div>
+          <button class="gal-zoom" data-title="Chaudière à Granulés Fröling" data-loc="Pontaumur · 2024" data-img="IMG_8060.jpeg"><i class="fas fa-expand-alt"></i></button>
+        </div>
+      </div>
+      <div class="gal-item" data-cat="plomberie" data-reveal data-delay="100">
+        <img src="IMG_8059.jpeg" alt="Réseau hydraulique et ballon">
+        <div class="gal-overlay">
+          <div class="gal-info"><h4>Réseau Hydraulique</h4><p>Saint-Gervais · 2023</p></div>
+          <button class="gal-zoom" data-title="Réseau Hydraulique" data-loc="Saint-Gervais · 2023" data-img="IMG_8059.jpeg"><i class="fas fa-expand-alt"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ ZONE D'INTERVENTION ═══════════════════════ -->
+<section id="zone" class="zone">
+  <div class="section-particles" id="zoneRain"></div>
+  <div class="container">
+    <div class="section-head light" data-reveal>
+      <span class="tag">Où j'interviens</span>
+      <h2>Zone d'Intervention</h2>
+      <p>Principalement basé dans les <strong>Combrailles</strong> (Puy-de-Dôme), j'interviens dans toute la région pour vos projets de plomberie, chauffage et rénovation.</p>
+    </div>
+    <div class="zone-cards" data-reveal>
+      <div class="zone-primary">
+        <h4><i class="fas fa-map-marker-alt"></i> Zone principale — Les Combrailles</h4>
+        <div class="towns" data-content="zone-primary-towns">
+          <span>Pontaumur</span><span>Pionsat</span><span>Saint-Gervais-d'Auvergne</span>
+          <span>Menat</span><span>Manzat</span><span>Châtelguyon</span>
+          <span>Riom</span><span>Combronde</span><span>Et alentours</span>
+        </div>
+      </div>
+      <div class="zone-ext">
+        <h4><i class="fas fa-route"></i> Déplacements possibles</h4>
+        <p data-content="zone-ext-text">Pour les projets importants (pompe à chaleur, rénovation complète, chantiers neufs), je me déplace au-delà des Combrailles. <strong>Contactez-moi pour vérifier votre secteur.</strong></p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:36px;" data-reveal>
+      <a href="#devis" class="btn btn-primary btn-lg">
+        <i class="fas fa-map-marker-alt"></i> Vérifier ma zone
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ TESTIMONIALS ═════════════════════════════ -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="tag">Ils nous font confiance</span>
+      <h2>Avis de nos Clients</h2>
+    </div>
+    <div data-reveal>
+      <script src="https://elfsightcdn.com/platform.js" async></script>
+      <div class="elfsight-app-eb5cff1a-dcd2-44f1-9bfc-aa067468f316" data-elfsight-app-lazy></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ DEVIS ════════════════════════════════ -->
+<section id="devis" class="devis">
+  <div class="container">
+    <div class="devis-grid">
+
+      <div class="devis-info" data-reveal>
+        <span class="tag">Gratuit & Sans engagement</span>
+        <h2>Demandez votre Devis</h2>
+        <p>Décrivez votre projet et je vous recontacte rapidement avec un devis détaillé et transparent.</p>
+        <div class="devis-promises">
+          <div class="devis-promise">
+            <div class="dp-icon"><i class="fas fa-clock"></i></div>
+            <div><h4>Réponse sous 24h</h4><p>Je vous rappelle rapidement après réception de votre demande</p></div>
+          </div>
+          <div class="devis-promise">
+            <div class="dp-icon"><i class="fas fa-file-invoice"></i></div>
+            <div><h4>Devis détaillé</h4><p>Un chiffrage clair et transparent, sans surprise</p></div>
+          </div>
+          <div class="devis-promise">
+            <div class="dp-icon"><i class="fas fa-handshake"></i></div>
+            <div><h4>Sans engagement</h4><p>Le devis est entièrement gratuit, sans obligation d'accepter</p></div>
+          </div>
+        </div>
+        <div class="devis-direct">
+          <p><strong>Contact direct :</strong></p>
+          <a href="tel:+33668635913" class="direct-link"><i class="fas fa-phone-alt"></i> 06 68 63 59 13</a>
+          <a href="mailto:yannickmay@orange.fr" class="direct-link"><i class="fas fa-envelope"></i> yannickmay@orange.fr</a>
+        </div>
+      </div>
+
+      <div class="devis-form-box" data-reveal data-delay="150">
+        <form id="devisForm" novalidate>
+          <div class="f-row">
+            <div class="f-group">
+              <label for="fPrenom">Prénom *</label>
+              <input type="text" id="fPrenom" name="prenom" placeholder="Votre prénom" required>
+            </div>
+            <div class="f-group">
+              <label for="fNom">Nom *</label>
+              <input type="text" id="fNom" name="nom" placeholder="Votre nom" required>
+            </div>
+          </div>
+          <div class="f-row">
+            <div class="f-group">
+              <label for="fPhone">Téléphone *</label>
+              <input type="tel" id="fPhone" name="telephone" placeholder="06 68 63 59 13" required>
+            </div>
+            <div class="f-group">
+              <label for="fEmail">Email *</label>
+              <input type="email" id="fEmail" name="email" placeholder="votre@email.fr" required>
+            </div>
+          </div>
+          <div class="f-group">
+            <label for="fAdresse">Commune / Adresse des travaux</label>
+            <input type="text" id="fAdresse" name="adresse" placeholder="Ex: Pontaumur 63380">
+          </div>
+          <div class="f-group">
+            <label for="fService">Type de prestation *</label>
+            <select id="fService" name="service" required>
+              <option value="">— Sélectionnez une prestation —</option>
+              <option value="Plomberie générale">Plomberie générale</option>
+              <option value="Chauffage">Chauffage</option>
+              <option value="Salle de bain clé en main">Salle de bain clé en main</option>
+              <option value="Pompe à chaleur">Pompe à chaleur</option>
+              <option value="Chaudière (gaz/fioul/bois)">Chaudière (gaz/fioul/bois)</option>
+              <option value="Climatisation">Climatisation</option>
+              <option value="Dépannage urgent">Dépannage urgent</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+          <div class="f-group f-radios">
+            <label>Urgence</label>
+            <div class="radio-wrap">
+              <label class="r-label"><input type="radio" name="urgence" value="Urgent"> <span>Urgent (dépannage)</span></label>
+              <label class="r-label"><input type="radio" name="urgence" value="Planifié" checked> <span>Planifié (projet)</span></label>
+            </div>
+          </div>
+          <div class="f-group">
+            <label for="fMessage">Description du projet *</label>
+            <textarea id="fMessage" name="message" rows="4" placeholder="Décrivez votre projet ou votre problème en quelques mots..." required></textarea>
+          </div>
+          <div class="f-group f-check">
+            <label class="check-label">
+              <input type="checkbox" name="rgpd" id="fRgpd" required>
+              <span>J'accepte que mes données soient utilisées pour traiter ma demande *</span>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+            <i class="fas fa-paper-plane"></i> Envoyer ma demande
+            <span class="btn-loader" id="btnLoader"></span>
+          </button>
+          <div id="formSuccess" class="form-msg success" style="display:none">
+            <i class="fas fa-check-circle"></i>
+            <div><strong>Demande envoyée avec succès !</strong><p>Je vous recontacte sous 24h. Merci pour votre confiance.</p></div>
+          </div>
+          <div id="formError" class="form-msg error" style="display:none">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div><strong>Erreur d'envoi</strong><p>Veuillez m'appeler directement au <a href="tel:+33668635913">06 68 63 59 13</a>.</p></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ CONTACT ══════════════════════════════ -->
+<section id="contact" class="contact">
+  <div class="section-particles" id="contactRain"></div>
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="tag">Nous joindre</span>
+      <h2>Contact</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card" data-reveal data-delay="0">
+        <div class="cc-icon"><i class="fas fa-phone-alt"></i></div>
+        <h3>Téléphone</h3>
+        <a href="tel:+33668635913" class="cc-main">06 68 63 59 13</a>
+        <p data-content="hours">Lun – Ven : 8h – 18h<br>Urgences</p>
+      </div>
+      <div class="contact-card" data-reveal data-delay="100">
+        <div class="cc-icon"><i class="fas fa-envelope"></i></div>
+        <h3>Email</h3>
+        <a href="mailto:yannickmay@orange.fr" class="cc-main">yannickmay@orange.fr</a>
+        <p>Réponse sous 24h ouvrées</p>
+      </div>
+      <div class="contact-card" data-reveal data-delay="200">
+        <div class="cc-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <h3>Adresse</h3>
+        <span class="cc-main">Les Ancizes-Comps</span>
+        <p data-content="addr-full">ZA la Plaine des Champs<br>Rue des Forgerons<br>63770 LES ANCIZES COMPS</p>
+      </div>
+      <div class="contact-card" data-reveal data-delay="300">
+        <div class="cc-icon"><i class="fas fa-building"></i></div>
+        <h3>Société</h3>
+        <span class="cc-main">SAS MAY YANNICK</span>
+        <p data-content="siret-text">SIRET : 909 074 627 00011<br>TVA : FR 23 909 074 627<br>Assurance décennale</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ FOOTER ═══════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo logo-light">
+          <img src="logo.png" alt="SAS MAY YANNICK" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="logo-fallback" style="display:none">
+            <div class="logo-icon"><i class="fas fa-wrench"></i></div>
+            <div class="logo-text">
+              <span class="logo-name">MAY YANNICK</span>
+              <span class="logo-tag">Plombier · Chauffagiste</span>
+            </div>
+          </div>
+        </a>
+        <p data-content="footer-desc">Votre artisan de confiance dans les Combrailles — plomberie, chauffage, rénovation énergétique.</p>
+        <div class="footer-tags">
+          <span>RGE</span><span>Qualipac</span><span>Qualibois</span><span>PG Professionnel du Gaz</span><span>Chauffage +</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Plomberie générale</a></li>
+          <li><a href="#services">Chauffage</a></li>
+          <li><a href="#services">Salle de bain clé en main</a></li>
+          <li><a href="#services">Pompes à chaleur</a></li>
+          <li><a href="#services">Dépannage urgent</a></li>
+          <li><a href="#services">Climatisation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#home">Accueil</a></li>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#certifications">Certifications</a></li>
+          <li><a href="#realisations">Réalisations</a></li>
+          <li><a href="#zone">Zone d'intervention</a></li>
+          <li><a href="#devis">Devis gratuit</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="footer-info">
+          <p><i class="fas fa-phone"></i> <a href="tel:+33668635913">06 68 63 59 13</a></p>
+          <p><i class="fas fa-envelope"></i> <a href="mailto:yannickmay@orange.fr">yannickmay@orange.fr</a></p>
+          <p><i class="fas fa-map-marker-alt"></i> 63770 LES ANCIZES COMPS</p>
+        </div>
+        <div class="footer-emergency">
+          <i class="fas fa-exclamation-circle"></i>
+          <div>
+            <strong>Urgence</strong>
+            <a href="tel:+33668635913">06 68 63 59 13</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p>© 2024 SAS MAY YANNICK — Tous droits réservés</p>
+      <p>Plombier Chauffagiste · Les Ancizes-Comps · 63770 · Puy-de-Dôme</p>
+      <p><button class="ml-link" id="openMentions">Mentions légales</button></p>
+    </div>
+  </div>
+</footer>
+
+<!-- Modale Mentions légales -->
+<div id="mentionsModal" class="ml-overlay">
+  <div class="ml-modal">
+    <button class="ml-close" id="closeMentions"><i class="fas fa-times"></i></button>
+    <div class="ml-modal-body">
+    <h2>Mentions légales</h2>
+    <p class="ml-intro">Conformément aux dispositions de la loi n° 2004-575 du 21 juin 2004 pour la confiance en l'économie numérique.</p>
+
+    <h3>1. Éditeur du site</h3>
+    <table class="ml-table">
+      <tr><td>Nom de l'entreprise</td><td>SAS MAY YANNICK</td></tr>
+      <tr><td>Forme juridique</td><td>SAS</td></tr>
+      <tr><td>Capital social</td><td>1 000 €</td></tr>
+      <tr><td>Siège social</td><td>Les Ancizes-Comps, 63770, Puy-de-Dôme</td></tr>
+      <tr><td>Numéro SIRET</td><td>909 074 627 00011</td></tr>
+      <tr><td>N° TVA intracomm.</td><td>FR 23 909 074 627</td></tr>
+      <tr><td>Code APE</td><td>4322B</td></tr>
+      <tr><td>Code APRM</td><td>4322AZ</td></tr>
+      <tr><td>Activités déclarées</td><td>Plomberie, chauffage, sanitaires, climatisation, installation eau &amp; gaz, travaux</td></tr>
+      <tr><td>Téléphone</td><td>06 68 63 59 13</td></tr>
+      <tr><td>Email</td><td>yannickmay@orange.fr</td></tr>
+      <tr><td>Directeur de publication</td><td>Mr MAY Yannick</td></tr>
+    </table>
+
+    <h3>2. Hébergement du site</h3>
+    <table class="ml-table">
+      <tr><td>Société</td><td>GitHub, Inc.</td></tr>
+      <tr><td>Adresse</td><td>88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis</td></tr>
+      <tr><td>Site internet</td><td>https://pages.github.com</td></tr>
+    </table>
+
+    <h3>3. Propriété intellectuelle</h3>
+    <p>L'ensemble du contenu du site (textes, images, graphismes, logo, etc.) est la propriété exclusive de SAS MAY YANNICK, sauf mention contraire. Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site est interdite, sauf autorisation écrite préalable.</p>
+
+    <h3>4. Responsabilité</h3>
+    <p>L'éditeur du site s'efforce de fournir des informations aussi précises que possible. Toutefois, il ne pourra être tenu responsable des omissions, inexactitudes ou carences dans la mise à jour. L'utilisateur du site reconnaît utiliser ces informations sous sa responsabilité exclusive.</p>
+
+    <h3>5. Données personnelles</h3>
+    <p>Le traitement de vos données à caractère personnel est régi par notre Charte du respect de la vie privée, conformément au Règlement Général sur la Protection des Données 2016/679 du 27 avril 2016 (« RGPD »).</p>
+
+    <h3>6. Droit applicable</h3>
+    <p>Le présent site est soumis au droit français. En cas de litige, les tribunaux compétents seront ceux du ressort du siège social de l'éditeur.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Scroll to top -->
+<button id="scrollTopBtn" class="scroll-top-btn" aria-label="Retour en haut">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox-overlay" aria-hidden="true">
+  <button class="lb-close" id="lbClose"><i class="fas fa-times"></i></button>
+  <div class="lb-content" id="lbContent">
+    <img id="lbImage" class="lb-img" src="" alt="">
+    <div class="lb-caption"><p id="lbTitle"></p><span id="lbLoc"></span></div>
+  </div>
+  <button class="lb-nav lb-prev" id="lbPrev"><i class="fas fa-chevron-left"></i></button>
+  <button class="lb-nav lb-next" id="lbNext"><i class="fas fa-chevron-right"></i></button>
+</div>
+
+<script src="smy-content.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

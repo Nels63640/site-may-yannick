@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — SAS MAY YANNICK</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0f172a;
+  --sidebar: #1e293b;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --primary: #0d1e2e;
+  --blue: #009ec8;
+  --orange: #e87820;
+  --green: #22c55e;
+  --red: #ef4444;
+  --text: #1e293b;
+  --muted: #64748b;
+  --radius: 10px;
+}
+
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* ── Login ── */
+#loginScreen {
+  position: fixed; inset: 0; background: var(--bg);
+  display: flex; align-items: center; justify-content: center; z-index: 999;
+}
+.login-box {
+  background: var(--sidebar); border-radius: 16px; padding: 48px 40px;
+  width: 380px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,.5);
+}
+.login-logo { width: 80px; height: 80px; background: var(--blue); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; margin: 0 auto 24px; }
+.login-box h1 { color: #fff; font-size: 1.4rem; margin-bottom: 6px; }
+.login-box p { color: #94a3b8; font-size: .85rem; margin-bottom: 28px; }
+.login-input {
+  width: 100%; padding: 12px 16px; border-radius: 8px;
+  border: 1px solid #334155; background: #0f172a; color: #fff;
+  font-size: 1rem; margin-bottom: 16px; outline: none; transition: border-color .2s;
+}
+.login-input:focus { border-color: var(--blue); }
+.login-btn {
+  width: 100%; padding: 13px; background: var(--blue); color: #fff;
+  border: none; border-radius: 8px; font-size: 1rem; font-weight: 600;
+  cursor: pointer; transition: background .2s;
+}
+.login-btn:hover { background: #007ea3; }
+.login-error { color: var(--red); font-size: .85rem; margin-top: 12px; display: none; }
+
+/* ── Layout ── */
+#adminPanel { display: none; }
+.layout { display: flex; min-height: 100vh; }
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 220px; background: var(--sidebar); flex-shrink: 0;
+  display: flex; flex-direction: column;
+  position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto;
+}
+.sidebar-logo { padding: 24px 20px 20px; border-bottom: 1px solid #334155; }
+.sidebar-logo img { height: 36px; }
+.sidebar-logo .s-title { color: #94a3b8; font-size: .75rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+
+.sidebar-nav { padding: 12px 0; flex: 1; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px; color: #94a3b8; font-size: .875rem;
+  cursor: pointer; transition: all .15s; border-left: 3px solid transparent;
+  text-decoration: none;
+}
+.nav-item:hover { color: #fff; background: rgba(255,255,255,.05); }
+.nav-item.active { color: #fff; background: rgba(0,158,200,.12); border-left-color: var(--blue); }
+.nav-item .nav-icon { font-size: 1.1rem; width: 20px; text-align: center; }
+
+.sidebar-footer { padding: 16px 20px; border-top: 1px solid #334155; }
+.logout-btn {
+  width: 100%; padding: 9px; background: rgba(239,68,68,.1); color: #fca5a5;
+  border: 1px solid rgba(239,68,68,.2); border-radius: 8px; font-size: .8rem;
+  cursor: pointer; transition: all .15s;
+}
+.logout-btn:hover { background: rgba(239,68,68,.2); }
+
+/* ── Main ── */
+.main-wrap { margin-left: 220px; flex: 1; display: flex; flex-direction: column; }
+
+.topbar {
+  background: var(--sidebar); border-bottom: 1px solid #334155;
+  padding: 0 28px; height: 60px; display: flex; align-items: center;
+  justify-content: space-between; position: sticky; top: 0; z-index: 10;
+}
+.topbar-title { color: #fff; font-size: 1rem; font-weight: 600; }
+.topbar-actions { display: flex; align-items: center; gap: 10px; }
+.btn-preview {
+  padding: 8px 16px; background: transparent; color: #94a3b8;
+  border: 1px solid #334155; border-radius: 8px; font-size: .85rem;
+  cursor: pointer; transition: all .15s; text-decoration: none;
+  display: flex; align-items: center; gap: 6px;
+}
+.btn-preview:hover { color: #fff; border-color: #475569; }
+.btn-publish {
+  padding: 9px 20px; background: var(--orange); color: #fff;
+  border: none; border-radius: 8px; font-size: .875rem; font-weight: 600;
+  cursor: pointer; transition: background .15s; display: flex; align-items: center; gap: 7px;
+}
+.btn-publish:hover:not(:disabled) { background: #c96310; }
+.btn-publish:disabled { opacity: .6; cursor: not-allowed; }
+
+.content-area { padding: 28px; max-width: 900px; }
+
+/* ── Sections ── */
+.section-panel { display: none; }
+.section-panel.active { display: block; }
+.section-title { color: #fff; font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; }
+.section-desc { color: #94a3b8; font-size: .875rem; margin-bottom: 24px; }
+
+/* ── Cards ── */
+.card {
+  background: #fff; border-radius: var(--radius); padding: 24px;
+  margin-bottom: 16px; border: 1px solid var(--border);
+}
+.card-title { font-size: .75rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--muted); margin-bottom: 16px; }
+
+/* ── Fields ── */
+.field { margin-bottom: 16px; }
+.field:last-child { margin-bottom: 0; }
+.field label { display: block; font-size: .8rem; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+.field input, .field textarea, .field select {
+  width: 100%; padding: 10px 14px; border: 1px solid var(--border);
+  border-radius: 8px; font-size: .9rem; color: var(--text); font-family: inherit;
+  transition: border-color .15s; outline: none; background: #fafafa;
+}
+.field input:focus, .field textarea:focus, .field select:focus { border-color: var(--blue); background: #fff; }
+.field textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+.field small { display: block; color: var(--muted); font-size: .75rem; margin-top: 4px; }
+
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+/* ── Stats grid ── */
+.stats-admin { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.stat-admin-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.stat-admin-card .card-title { margin-bottom: 12px; }
+
+/* ── Services grid ── */
+.services-admin { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.svc-admin-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+
+/* ── Config ── */
+.config-note {
+  background: rgba(0,158,200,.18); border: 1px solid rgba(0,158,200,.35);
+  border-radius: var(--radius); padding: 16px 20px; margin-bottom: 20px;
+}
+.config-note h4 { color: #fff; font-size: .9rem; font-weight: 700; margin-bottom: 8px; }
+.config-note ol { padding-left: 18px; }
+.config-note li { font-size: .84rem; color: #fff; line-height: 2; font-weight: 500; }
+.config-note li strong { color: #fff; font-weight: 700; }
+.config-note a { color: #7dd8f0; font-weight: 700; text-decoration: underline; }
+.config-note code { background: rgba(0,0,0,.20); padding: 2px 6px; border-radius: 4px; font-size: .8rem; font-family: monospace; color: #fff; }
+.config-saved { color: var(--green); font-size: .8rem; margin-top: 8px; display: none; }
+
+/* ── Upload button ── */
+.upload-btn {
+  display: inline-block; padding: 8px 14px; background: var(--blue); color: #fff;
+  border-radius: 8px; font-size: .8rem; font-weight: 600; cursor: pointer; transition: background .15s;
+}
+.upload-btn:hover { background: #007ea3; }
+.upload-btn input { display: none; }
+
+/* ── Photo preview ── */
+.photo-preview {
+  width: 100%; height: 140px; object-fit: cover; border-radius: 8px;
+  border: 1px solid var(--border); margin-bottom: 12px; background: #f1f5f9; display: block;
+}
+
+/* ── Gallery admin ── */
+.gal-admin-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 16px; border: 1px solid var(--border); border-radius: 10px;
+  margin-bottom: 12px; background: #f8fafc; position: relative;
+}
+.gal-admin-preview { flex-shrink: 0; width: 120px; }
+.gal-admin-thumb {
+  width: 120px; height: 90px; object-fit: cover; border-radius: 8px;
+  display: block; border: 1px solid var(--border); background: #e2e8f0; margin-bottom: 8px;
+}
+.gal-admin-fields { flex: 1; min-width: 0; }
+.gal-upload-btn {
+  display: block; width: 100%; text-align: center; padding: 6px 8px;
+  background: rgba(0,158,200,.1); color: var(--blue); border: 1px solid rgba(0,158,200,.25);
+  border-radius: 6px; font-size: .75rem; font-weight: 600; cursor: pointer; transition: all .15s;
+}
+.gal-upload-btn:hover { background: rgba(0,158,200,.2); }
+.gal-upload-btn input { display: none; }
+.gal-admin-actions { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+.move-btn, .del-gal-btn {
+  width: 30px; height: 30px; border-radius: 6px; border: 1px solid var(--border);
+  font-size: .8rem; cursor: pointer; display: flex; align-items: center;
+  justify-content: center; transition: all .15s;
+}
+.move-btn { background: #f1f5f9; color: var(--muted); }
+.move-btn:hover { background: #e2e8f0; color: var(--text); }
+.del-gal-btn { background: rgba(239,68,68,.08); border-color: rgba(239,68,68,.2); color: var(--red); margin-top: 4px; }
+.del-gal-btn:hover { background: rgba(239,68,68,.18); }
+.add-photo-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 12px; border: 2px dashed #cbd5e1; border-radius: 10px;
+  background: transparent; color: #64748b; font-size: .875rem; font-weight: 600;
+  cursor: pointer; transition: all .15s; margin-top: 4px;
+}
+.add-photo-btn:hover { border-color: var(--blue); color: var(--blue); background: rgba(0,158,200,.04); }
+
+/* ── Rates error banner ── */
+#rates-error-banner {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  background: #7f1d1d; color: #fff;
+  padding: 14px 20px 14px 24px;
+  font-size: .875rem; font-weight: 600;
+  border-bottom: 2px solid #ef4444;
+  align-items: flex-start; gap: 12px;
+  box-shadow: 0 4px 20px rgba(239,68,68,.4);
+  line-height: 1.5;
+}
+#rates-error-banner.show { display: flex; }
+#rates-error-banner .reb-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 1px; }
+#rates-error-banner .reb-body { flex: 1; min-width: 0; }
+#rates-error-banner .reb-title { font-size: .95rem; }
+#rates-error-banner .reb-msg { font-weight: 400; font-size: .82rem; opacity: .9; margin-top: 3px; }
+#rates-error-banner .reb-date { font-weight: 400; font-size: .75rem; opacity: .65; }
+#rates-error-banner .reb-action {
+  flex-shrink: 0; padding: 6px 14px; background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.3); border-radius: 6px;
+  color: #fff; font-size: .8rem; font-weight: 700; cursor: pointer;
+  white-space: nowrap; transition: background .15s; align-self: center;
+}
+#rates-error-banner .reb-action:hover { background: rgba(255,255,255,.25); }
+#rates-error-banner .reb-close {
+  flex-shrink: 0; background: none; border: none; color: rgba(255,255,255,.6);
+  font-size: 1.1rem; cursor: pointer; padding: 2px 4px; align-self: flex-start;
+  transition: color .15s;
+}
+#rates-error-banner .reb-close:hover { color: #fff; }
+/* Push topbar down when banner is visible */
+body.has-rates-error .topbar { top: 62px; }
+
+/* ── Toast ── */
+#toast {
+  position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+  padding: 14px 20px; border-radius: 10px; font-size: .9rem; font-weight: 600;
+  display: none; align-items: center; gap: 10px; max-width: 360px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+}
+#toast.show { display: flex; }
+#toast.success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+#toast.error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+#toast.info { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+.spinner {
+  width: 16px; height: 16px; border: 2px solid rgba(30,64,175,.3);
+  border-top-color: #1e40af; border-radius: 50%; animation: spin .6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Rates tables ── */
+.rates-table-wrap { overflow-x: auto; }
+.rates-table { width: 100%; border-collapse: collapse; font-size: .83rem; }
+.rates-table th { padding: 8px 10px; font-size: .71rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); border-bottom: 2px solid var(--border); text-align: right; white-space: nowrap; }
+.rates-table th:first-child { text-align: left; }
+.rates-table td { padding: 5px 6px; border-bottom: 1px solid var(--border); text-align: right; }
+.rates-table td:first-child { font-weight: 600; font-size: .8rem; color: var(--muted); text-align: left; padding-left: 10px; white-space: nowrap; }
+.rates-table input[type="number"] { width: 96px; padding: 6px 8px; border: 1px solid var(--border); border-radius: 6px; font-size: .83rem; background: #fafafa; text-align: right; outline: none; }
+.rates-table input:focus { border-color: var(--blue); background: #fff; }
+.rates-work-block { border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; background: #fafafa; }
+.rates-work-name { font-weight: 700; font-size: .85rem; margin-bottom: 10px; color: var(--text); }
+.rates-work-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+@media (max-width: 700px) { .rates-work-grid { grid-template-columns: repeat(3, 1fr); } }
+.rates-work-grid .field { margin: 0; }
+.rates-work-grid .field label { font-size: .72rem; white-space: nowrap; }
+.z2x-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; align-items: flex-end; }
+.z2x-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.z2x-item label { font-size: .7rem; color: var(--muted); font-weight: 600; }
+.z2x-item input { width: 80px; padding: 6px 8px; border: 1px solid var(--border); border-radius: 6px; font-size: .83rem; text-align: right; background: #fafafa; outline: none; }
+.z2x-item input:focus { border-color: var(--blue); }
+</style>
+</head>
+<body>
+
+<!-- ── Écran de connexion ── -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">🔧</div>
+    <h1>Panneau d'administration</h1>
+    <p>SAS MAY YANNICK — Accès réservé</p>
+    <input type="password" id="pwdInput" class="login-input" placeholder="Mot de passe" autocomplete="current-password">
+    <button class="login-btn" id="loginBtn">Se connecter</button>
+    <div class="login-error" id="loginError">Mot de passe incorrect.</div>
+  </div>
+</div>
+
+<!-- ── Panneau principal ── -->
+<div id="adminPanel">
+
+  <!-- Bandeau d'erreur mise à jour automatique taux -->
+  <div id="rates-error-banner">
+    <span class="reb-icon">🚨</span>
+    <div class="reb-body">
+      <div class="reb-title">Mise à jour automatique des taux en ERREUR</div>
+      <div class="reb-msg" id="reb-msg">Le site de l'ANAH a peut-être changé de structure. Vérifiez et mettez les taux à jour manuellement.</div>
+      <div class="reb-date" id="reb-date"></div>
+    </div>
+    <button class="reb-action" onclick="document.querySelector('[data-section=rates]').click();document.getElementById('rates-error-banner').classList.remove('show');document.body.classList.remove('has-rates-error')">
+      Voir les taux →
+    </button>
+    <button class="reb-close" onclick="document.getElementById('rates-error-banner').classList.remove('show');document.body.classList.remove('has-rates-error')" title="Fermer">✕</button>
+  </div>
+
+  <div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
+        <div class="s-title">Administration</div>
+      </div>
+      <nav class="sidebar-nav">
+        <a class="nav-item active" data-section="config"><span class="nav-icon">⚙️</span> Configuration</a>
+        <a class="nav-item" data-section="coords"><span class="nav-icon">📞</span> Coordonnées</a>
+        <a class="nav-item" data-section="hero"><span class="nav-icon">🏠</span> Accueil</a>
+        <a class="nav-item" data-section="stats"><span class="nav-icon">📊</span> Statistiques</a>
+        <a class="nav-item" data-section="services"><span class="nav-icon">🔧</span> Services</a>
+        <a class="nav-item" data-section="about"><span class="nav-icon">👤</span> À propos</a>
+        <a class="nav-item" data-section="certifications"><span class="nav-icon">🏆</span> Certifications</a>
+        <a class="nav-item" data-section="zone"><span class="nav-icon">📍</span> Zone</a>
+        <a class="nav-item" data-section="footer"><span class="nav-icon">📝</span> Footer</a>
+        <a class="nav-item" data-section="photos"><span class="nav-icon">🖼️</span> Photos</a>
+        <a class="nav-item" data-section="rates"><span class="nav-icon">📐</span> Taux aides</a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="logout-btn" id="logoutBtn">🚪 Se déconnecter</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main-wrap">
+      <header class="topbar">
+        <span class="topbar-title" id="topbarTitle">Configuration</span>
+        <div class="topbar-actions">
+          <a href="index.html" target="_blank" class="btn-preview">👁 Voir le site</a>
+          <button class="btn-publish" id="publishBtn">🚀 Publier</button>
+        </div>
+      </header>
+
+      <div class="content-area">
+
+        <!-- ── CONFIG ── -->
+        <div class="section-panel active" id="sec-config">
+          <div class="section-title">Configuration GitHub</div>
+          <div class="section-desc">Renseignez vos informations GitHub pour pouvoir publier les modifications.</div>
+          <div class="config-note">
+            <h4>📋 Comment obtenir un token GitHub ?</h4>
+            <ol>
+              <li>Allez sur <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a></li>
+              <li>Donnez un nom (ex : <code>SAS MAY YANNICK site</code>)</li>
+              <li>Cochez <code>repo</code> dans les permissions</li>
+              <li>Cliquez <strong>Generate token</strong> et copiez-le ici</li>
+            </ol>
+          </div>
+          <div class="card">
+            <div class="card-title">Paramètres GitHub</div>
+            <div class="field">
+              <label>Token GitHub (Personal Access Token)</label>
+              <input type="password" id="cfg-token" placeholder="ghp_xxxxxxxxxxxxxxxx">
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Nom d'utilisateur GitHub</label>
+                <input type="text" id="cfg-owner" placeholder="mon-pseudo">
+              </div>
+              <div class="field">
+                <label>Nom du dépôt</label>
+                <input type="text" id="cfg-repo" placeholder="site-may-yannick">
+              </div>
+            </div>
+            <div class="field">
+              <label>Branche</label>
+              <input type="text" id="cfg-branch" placeholder="main" value="main">
+            </div>
+            <button class="upload-btn" id="saveConfigBtn" style="margin-top:8px">💾 Sauvegarder</button>
+            <div class="config-saved" id="configSaved">✅ Configuration sauvegardée !</div>
+          </div>
+        </div>
+
+        <!-- ── COORDONNÉES ── -->
+        <div class="section-panel" id="sec-coords">
+          <div class="section-title">Coordonnées</div>
+          <div class="section-desc">Ces informations apparaissent sur tout le site (header, footer, contact).</div>
+          <div class="card">
+            <div class="field-row">
+              <div class="field">
+                <label>Téléphone</label>
+                <input type="tel" id="f-phone" placeholder="06 68 63 59 13">
+              </div>
+              <div class="field">
+                <label>Email</label>
+                <input type="email" id="f-email" placeholder="yannickmay@orange.fr">
+              </div>
+            </div>
+            <div class="field">
+              <label>Horaires (section Contact)</label>
+              <input type="text" id="f-hours" placeholder="Lun – Ven : 8h – 18h">
+              <small>Vous pouvez utiliser &lt;br&gt; pour un saut de ligne.</small>
+            </div>
+            <div class="field">
+              <label>Adresse complète</label>
+              <textarea id="f-addr-full" rows="3" placeholder="ZA la Plaine des Champs&#10;Rue des Forgerons&#10;63770 LES ANCIZES COMPS"></textarea>
+              <small>Utilisez &lt;br&gt; pour les sauts de ligne.</small>
+            </div>
+            <div class="field">
+              <label>SIRET & infos société</label>
+              <textarea id="f-siret-text" rows="2" placeholder="SIRET : 123 456 789 00012&#10;Assurance décennale"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── ACCUEIL (HERO) ── -->
+        <div class="section-panel" id="sec-hero">
+          <div class="section-title">Accueil</div>
+          <div class="section-desc">Le bandeau d'en-tête de la page d'accueil.</div>
+          <div class="card">
+            <div class="card-title">Badge de certification</div>
+            <div class="field">
+              <label>Texte du badge (sous le logo, en haut)</label>
+              <input type="text" id="f-hero-badge" placeholder="Certifié RGE · Plus de 20 ans d'expérience">
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Animation de texte</div>
+            <div class="field">
+              <label>Mots animés (séparés par |)</label>
+              <input type="text" id="f-typed-words" placeholder="les services depuis 20 ans|les Combrailles|le Puy-de-Dôme|la région">
+              <small>Chaque mot s'affiche à tour de rôle après "Votre Expert Plombier Chauffagiste dans…"</small>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Description principale</div>
+            <div class="field">
+              <label>Texte sous le titre</label>
+              <textarea id="f-hero-desc" rows="4" placeholder="Installation, entretien, dépannage..."></textarea>
+              <small>Utilisez &lt;strong&gt;texte&lt;/strong&gt; pour mettre en gras et &lt;br&gt; pour un saut de ligne.</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── STATISTIQUES ── -->
+        <div class="section-panel" id="sec-stats">
+          <div class="section-title">Statistiques</div>
+          <div class="section-desc">Les 4 chiffres clés affichés dans la barre sous l'en-tête.</div>
+          <div class="stats-admin">
+            <div class="stat-admin-card">
+              <div class="card-title">Statistique 1</div>
+              <div class="field"><label>Valeur</label><input type="text" id="f-stat1-val" placeholder="20"></div>
+              <div class="field"><label>Libellé</label><input type="text" id="f-stat1-lbl" placeholder="Ans d'expérience"></div>
+            </div>
+            <div class="stat-admin-card">
+              <div class="card-title">Statistique 2</div>
+              <div class="field"><label>Valeur</label><input type="text" id="f-stat2-val" placeholder="500"></div>
+              <div class="field"><label>Libellé</label><input type="text" id="f-stat2-lbl" placeholder="Clients satisfaits"></div>
+            </div>
+            <div class="stat-admin-card">
+              <div class="card-title">Statistique 3</div>
+              <div class="field"><label>Valeur</label><input type="text" id="f-stat3-val" placeholder="1000"></div>
+              <div class="field"><label>Libellé</label><input type="text" id="f-stat3-lbl" placeholder="Projets réalisés"></div>
+            </div>
+            <div class="stat-admin-card">
+              <div class="card-title">Statistique 4</div>
+              <div class="field"><label>Valeur</label><input type="text" id="f-stat4-val" placeholder="5"></div>
+              <div class="field"><label>Libellé</label><input type="text" id="f-stat4-lbl" placeholder="Certifications RGE"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SERVICES ── -->
+        <div class="section-panel" id="sec-services">
+          <div class="section-title">Services</div>
+          <div class="section-desc">Les 6 cartes de services affichées sur le site.</div>
+          <div class="services-admin">
+            <div class="svc-admin-card">
+              <div class="card-title">Service 1 — Plomberie</div>
+              <div class="field"><label>Titre</label><input type="text" id="f-svc1-title"></div>
+              <div class="field"><label>Description</label><textarea id="f-svc1-desc" rows="3"></textarea></div>
+            </div>
+            <div class="svc-admin-card">
+              <div class="card-title">Service 2 — Chauffage</div>
+              <div class="field"><label>Titre</label><input type="text" id="f-svc2-title"></div>
+              <div class="field"><label>Description</label><textarea id="f-svc2-desc" rows="3"></textarea></div>
+            </div>
+            <div class="svc-admin-card">
+              <div class="card-title">Service 3 — Salle de bain</div>
+              <div class="field"><label>Titre</label><input type="text" id="f-svc3-title"></div>
+              <div class="field"><label>Description</label><textarea id="f-svc3-desc" rows="3"></textarea></div>
+            </div>
+            <div class="svc-admin-card">
+              <div class="card-title">Service 4 — Dépannage</div>
+              <div class="field"><label>Titre</label><input type="text" id="f-svc4-title"></div>
+              <div class="field"><label>Description</label><textarea id="f-svc4-desc" rows="3"></textarea></div>
+            </div>
+            <div class="svc-admin-card">
+              <div class="card-title">Service 5 — PAC</div>
+              <div class="field"><label>Titre</label><input type="text" id="f-svc5-title"></div>
+              <div class="field"><label>Description</label><textarea id="f-svc5-desc" rows="3"></textarea></div>
+            </div>
+            <div class="svc-admin-card">
+              <div class="card-title">Service 6 — Climatisation</div>
+              <div class="field"><label>Titre</label><input type="text" id="f-svc6-title"></div>
+              <div class="field"><label>Description</label><textarea id="f-svc6-desc" rows="3"></textarea></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── À PROPOS ── -->
+        <div class="section-panel" id="sec-about">
+          <div class="section-title">À propos</div>
+          <div class="section-desc">La section "Votre Artisan de Confiance" au milieu de la page.</div>
+          <div class="card">
+            <div class="card-title">Textes principaux</div>
+            <div class="field">
+              <label>Introduction (texte en évidence)</label>
+              <textarea id="f-about-lead" rows="3"></textarea>
+            </div>
+            <div class="field">
+              <label>Texte principal</label>
+              <textarea id="f-about-body" rows="4"></textarea>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Points forts (3 arguments)</div>
+            <div class="field">
+              <label>Argument 1 — Titre</label>
+              <input type="text" id="f-feat1-title">
+            </div>
+            <div class="field">
+              <label>Argument 1 — Description</label>
+              <input type="text" id="f-feat1-desc">
+            </div>
+            <div class="field" style="margin-top:12px">
+              <label>Argument 2 — Titre</label>
+              <input type="text" id="f-feat2-title">
+            </div>
+            <div class="field">
+              <label>Argument 2 — Description</label>
+              <input type="text" id="f-feat2-desc">
+            </div>
+            <div class="field" style="margin-top:12px">
+              <label>Argument 3 — Titre</label>
+              <input type="text" id="f-feat3-title">
+            </div>
+            <div class="field">
+              <label>Argument 3 — Description</label>
+              <input type="text" id="f-feat3-desc">
+            </div>
+          </div>
+        </div>
+
+        <!-- ── CERTIFICATIONS ── -->
+        <div class="section-panel" id="sec-certifications">
+          <div class="section-title">Certifications</div>
+          <div class="section-desc">La section certifications RGE et les 4 labels.</div>
+          <div class="card">
+            <div class="card-title">Bloc RGE principal</div>
+            <div class="field">
+              <label>Titre</label>
+              <input type="text" id="f-rge-title" placeholder="Reconnu Garant de l'Environnement — RGE">
+            </div>
+            <div class="field">
+              <label>Description</label>
+              <textarea id="f-rge-desc" rows="3"></textarea>
+              <small>Utilisez &lt;strong&gt;texte&lt;/strong&gt; pour mettre en gras.</small>
+            </div>
+          </div>
+          <div class="services-admin">
+            <div class="svc-admin-card">
+              <div class="card-title">Certification 1 — Qualipac</div>
+              <div class="field"><label>Titre</label><input type="text" id="f-certif1-title"></div>
+              <div class="field"><label>Description</label><textarea id="f-certif1-desc" rows="3"></textarea></div>
+            </div>
+            <div class="svc-admin-card">
+              <div class="card-title">Certification 2 — Qualibois</div>
+              <div class="field"><label>Titre</label><input type="text" id="f-certif2-title"></div>
+              <div class="field"><label>Description</label><textarea id="f-certif2-desc" rows="3"></textarea></div>
+            </div>
+            <div class="svc-admin-card">
+              <div class="card-title">Certification 3 — Qualigaz</div>
+              <div class="field"><label>Titre</label><input type="text" id="f-certif3-title"></div>
+              <div class="field"><label>Description</label><textarea id="f-certif3-desc" rows="3"></textarea></div>
+            </div>
+            <div class="svc-admin-card">
+              <div class="card-title">Certification 4 — Qualifioul</div>
+              <div class="field"><label>Titre</label><input type="text" id="f-certif4-title"></div>
+              <div class="field"><label>Description</label><textarea id="f-certif4-desc" rows="3"></textarea></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── ZONE ── -->
+        <div class="section-panel" id="sec-zone">
+          <div class="section-title">Zone d'intervention</div>
+          <div class="section-desc">Les villes et communes couvertes par Yannick MAY.</div>
+          <div class="card">
+            <div class="field">
+              <label>Communes (zone principale) — une par ligne</label>
+              <textarea id="f-zone-primary-towns" rows="6" placeholder="Pontaumur&#10;Pionsat&#10;Saint-Gervais-d'Auvergne&#10;..."></textarea>
+              <small>Chaque ligne correspond à une commune affichée en badge sur le site.</small>
+            </div>
+          </div>
+          <div class="card">
+            <div class="field">
+              <label>Texte "Déplacements possibles"</label>
+              <textarea id="f-zone-ext-text" rows="3"></textarea>
+              <small>Utilisez &lt;strong&gt;texte&lt;/strong&gt; pour mettre en gras.</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── FOOTER ── -->
+        <div class="section-panel" id="sec-footer">
+          <div class="section-title">Footer</div>
+          <div class="section-desc">Le texte descriptif affiché dans le pied de page.</div>
+          <div class="card">
+            <div class="field">
+              <label>Description (sous le logo dans le footer)</label>
+              <textarea id="f-footer-desc" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── PHOTOS ── -->
+        <div class="section-panel" id="sec-photos">
+          <div class="section-title">Photos</div>
+          <div class="section-desc">Gérez la photo de profil et les photos de la galerie Réalisations.</div>
+
+          <!-- Photo de profil -->
+          <div class="card" style="margin-bottom:20px">
+            <div class="card-title">Photo de profil (section À propos)</div>
+            <div style="display:flex;align-items:center;gap:20px">
+              <img id="prev-about-photo" class="photo-preview" style="width:140px;height:140px;object-fit:cover;flex-shrink:0;border-radius:12px" src="yannick.png">
+              <div>
+                <label class="upload-btn">
+                  📸 Changer la photo
+                  <input type="file" accept="image/*" id="about-photo-file">
+                </label>
+                <p style="font-size:.78rem;color:var(--muted);margin-top:8px">Formats : JPG, PNG, WEBP</p>
+                <input type="hidden" id="about-photo-src" value="yannick.png">
+              </div>
+            </div>
+          </div>
+
+          <!-- Galerie -->
+          <div class="card">
+            <div class="card-title">Photos de la galerie Réalisations</div>
+            <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px">
+              Ajoutez, modifiez ou supprimez des photos. Utilisez ▲▼ pour réordonner.
+            </p>
+            <div id="galleryAdminList"></div>
+            <button class="add-photo-btn" id="addGalPhoto">
+              ➕ Ajouter une photo
+            </button>
+          </div>
+        </div>
+
+        <!-- ── TAUX DES AIDES ── -->
+        <div class="section-panel" id="sec-rates">
+          <div class="section-title">Taux des aides</div>
+          <div class="section-desc">Mettez à jour les barèmes MaPrimeRénov' et CEE quand l'ANAH publie de nouveaux taux (généralement 1–2 fois par an).</div>
+
+          <div class="config-note">
+            <h4>🔗 Sources officielles</h4>
+            <ol>
+              <li><strong>Plafonds de ressources ANAH</strong> — <a href="https://www.anah.gouv.fr/proprietaires/vos-aides/les-conditions-de-ressources" target="_blank">anah.gouv.fr → Conditions de ressources</a></li>
+              <li><strong>Taux MaPrimeRénov' par geste</strong> — <a href="https://www.maprimerenov.gouv.fr" target="_blank">maprimerenov.gouv.fr</a> ou cherchez <code>arrêté MaPrimeRénov' taux</code> sur legifrance.gouv.fr</li>
+              <li><strong>Prix CEE du marché</strong> — <a href="https://www.emmy.fr" target="_blank">emmy.fr</a> (cours du kWhc) — multiplier par les volumes bonifiés de chaque équipement</li>
+            </ol>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Date de mise à jour</div>
+            <div class="field" style="max-width:240px">
+              <label>Date affichée sur le simulateur</label>
+              <input type="date" id="rates-updated">
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Plafonds de ressources — Province (Zone 2)</div>
+            <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px">Revenus fiscaux de référence annuels (€). Source : décret ANAH annuel.</p>
+            <div class="rates-table-wrap">
+              <table class="rates-table">
+                <thead>
+                  <tr>
+                    <th>Foyer</th>
+                    <th style="color:#2563eb">🔵 Très modeste</th>
+                    <th style="color:#d97706">🟡 Modeste</th>
+                    <th style="color:#7c3aed">🟣 Intermédiaire</th>
+                    <th style="color:#db2777">🌸 Supérieur</th>
+                  </tr>
+                </thead>
+                <tbody id="rates-z2-body"></tbody>
+              </table>
+            </div>
+            <p style="font-size:.78rem;color:var(--muted);margin-top:14px;font-weight:600">Par personne supplémentaire (au-delà de 5 pers.) :</p>
+            <div class="z2x-row" id="rates-z2x-row"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Taux MaPrimeRénov' et CEE par type de travaux</div>
+            <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px">Taux (%) appliqués sur le coût HT dans la limite du plafond. CEE = forfait indicatif en €.</p>
+            <div id="rates-works-wrap"></div>
+          </div>
+        </div>
+
+      </div><!-- /content-area -->
+    </div><!-- /main-wrap -->
+  </div><!-- /layout -->
+</div><!-- /adminPanel -->
+
+<!-- Toast notification -->
+<div id="toast"></div>
+
+<script>
+'use strict';
+
+const PASSWORD = 'MayAdmin63';
+const LS_AUTH   = 'smy_admin_auth';
+const LS_CONFIG = 'smy_admin_config';
+
+const pendingAboutPhoto = {};     // { file, dataUrl }
+const pendingGalleryPhotos = new Map(); // Map<domElement, {file, dataUrl}>
+
+/* ── Auth ── */
+function checkAuth() { return sessionStorage.getItem(LS_AUTH) === '1'; }
+
+document.getElementById('loginBtn').addEventListener('click', doLogin);
+document.getElementById('pwdInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+
+function doLogin() {
+  if (document.getElementById('pwdInput').value === PASSWORD) {
+    sessionStorage.setItem(LS_AUTH, '1');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    initPanel();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('pwdInput').value = '';
+    document.getElementById('pwdInput').focus();
+  }
+}
+
+document.getElementById('logoutBtn').addEventListener('click', function() {
+  sessionStorage.removeItem(LS_AUTH); location.reload();
+});
+
+/* ── Navigation ── */
+const sectionNames = {
+  config: 'Configuration', coords: 'Coordonnées', hero: 'Accueil',
+  stats: 'Statistiques', services: 'Services', about: 'À propos',
+  certifications: 'Certifications', zone: 'Zone d\'intervention',
+  footer: 'Footer', photos: 'Photos', rates: 'Taux des aides'
+};
+
+document.querySelectorAll('.nav-item').forEach(function(item) {
+  item.addEventListener('click', function() {
+    const sec = this.dataset.section;
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById('sec-' + sec).classList.add('active');
+    document.getElementById('topbarTitle').textContent = sectionNames[sec] || sec;
+  });
+});
+
+/* ── Config GitHub ── */
+function loadConfig() {
+  try {
+    const cfg = JSON.parse(localStorage.getItem(LS_CONFIG) || '{}');
+    if (cfg.token)  document.getElementById('cfg-token').value  = cfg.token;
+    if (cfg.owner)  document.getElementById('cfg-owner').value  = cfg.owner;
+    if (cfg.repo)   document.getElementById('cfg-repo').value   = cfg.repo;
+    if (cfg.branch) document.getElementById('cfg-branch').value = cfg.branch;
+  } catch(e) {}
+}
+
+function getConfig() {
+  try { return JSON.parse(localStorage.getItem(LS_CONFIG) || '{}'); }
+  catch(e) { return {}; }
+}
+
+document.getElementById('saveConfigBtn').addEventListener('click', function() {
+  const cfg = {
+    token:  document.getElementById('cfg-token').value.trim(),
+    owner:  document.getElementById('cfg-owner').value.trim(),
+    repo:   document.getElementById('cfg-repo').value.trim(),
+    branch: document.getElementById('cfg-branch').value.trim() || 'main'
+  };
+  localStorage.setItem(LS_CONFIG, JSON.stringify(cfg));
+  const saved = document.getElementById('configSaved');
+  saved.style.display = 'block';
+  setTimeout(() => { saved.style.display = 'none'; }, 3000);
+});
+
+/* ── Chargement du contenu actuel depuis content.json ── */
+function loadCurrentContent() {
+  fetch('content.json?_=' + Date.now())
+    .then(r => r.ok ? r.json() : null)
+    .then(function(data) {
+      if (!data) return;
+
+      const textMap = {
+        'phone': 'f-phone', 'email': 'f-email', 'hours': 'f-hours',
+        'addr-full': 'f-addr-full', 'siret-text': 'f-siret-text',
+        'hero-badge': 'f-hero-badge', 'typed-words': 'f-typed-words', 'hero-desc': 'f-hero-desc',
+        'about-lead': 'f-about-lead', 'about-body': 'f-about-body',
+        'feat1-title': 'f-feat1-title', 'feat1-desc': 'f-feat1-desc',
+        'feat2-title': 'f-feat2-title', 'feat2-desc': 'f-feat2-desc',
+        'feat3-title': 'f-feat3-title', 'feat3-desc': 'f-feat3-desc',
+        'rge-title': 'f-rge-title', 'rge-desc': 'f-rge-desc',
+        'certif1-title': 'f-certif1-title', 'certif1-desc': 'f-certif1-desc',
+        'certif2-title': 'f-certif2-title', 'certif2-desc': 'f-certif2-desc',
+        'certif3-title': 'f-certif3-title', 'certif3-desc': 'f-certif3-desc',
+        'certif4-title': 'f-certif4-title', 'certif4-desc': 'f-certif4-desc',
+        'zone-ext-text': 'f-zone-ext-text', 'footer-desc': 'f-footer-desc',
+        'stat1-val': 'f-stat1-val', 'stat1-lbl': 'f-stat1-lbl',
+        'stat2-val': 'f-stat2-val', 'stat2-lbl': 'f-stat2-lbl',
+        'stat3-val': 'f-stat3-val', 'stat3-lbl': 'f-stat3-lbl',
+        'stat4-val': 'f-stat4-val', 'stat4-lbl': 'f-stat4-lbl',
+        'svc1-title': 'f-svc1-title', 'svc1-desc': 'f-svc1-desc',
+        'svc2-title': 'f-svc2-title', 'svc2-desc': 'f-svc2-desc',
+        'svc3-title': 'f-svc3-title', 'svc3-desc': 'f-svc3-desc',
+        'svc4-title': 'f-svc4-title', 'svc4-desc': 'f-svc4-desc',
+        'svc5-title': 'f-svc5-title', 'svc5-desc': 'f-svc5-desc',
+        'svc6-title': 'f-svc6-title', 'svc6-desc': 'f-svc6-desc'
+      };
+      Object.keys(textMap).forEach(function(key) {
+        const el = document.getElementById(textMap[key]);
+        if (el && data[key] !== undefined) el.value = data[key];
+      });
+
+      /* Zone towns: pipe → newline */
+      if (data['zone-primary-towns']) {
+        const el = document.getElementById('f-zone-primary-towns');
+        if (el) el.value = data['zone-primary-towns'].split('|').join('\n');
+      }
+
+      /* About photo */
+      if (data['about-photo']) {
+        document.getElementById('about-photo-src').value = data['about-photo'];
+        document.getElementById('prev-about-photo').src = data['about-photo'];
+      }
+
+      /* Gallery */
+      if (data.gallery && Array.isArray(data.gallery)) {
+        buildGalleryAdminList(data.gallery);
+      }
+    })
+    .catch(() => {});
+}
+
+/* ── About photo upload ── */
+document.getElementById('about-photo-file').addEventListener('change', function() {
+  const file = this.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    pendingAboutPhoto.file = file;
+    pendingAboutPhoto.dataUrl = e.target.result;
+    document.getElementById('prev-about-photo').src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+/* ── Gallery admin rendering ── */
+function escAttr(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+}
+
+function buildGalleryAdminList(photos) {
+  const list = document.getElementById('galleryAdminList');
+  list.innerHTML = '';
+  photos.forEach(function(photo) {
+    list.appendChild(createGalAdminItem(photo));
+  });
+}
+
+function createGalAdminItem(photo) {
+  const item = document.createElement('div');
+  item.className = 'gal-admin-item';
+
+  const catOpts = [
+    {v:'chauffage',l:'Chauffage'}, {v:'plomberie',l:'Plomberie'},
+    {v:'sdb',l:'Salle de bain'}, {v:'other',l:'Autre'}
+  ].map(c => `<option value="${c.v}"${photo.cat===c.v?' selected':''}>${c.l}</option>`).join('');
+
+  item.innerHTML = `
+    <div class="gal-admin-preview">
+      <img src="${escAttr(photo.src||'')}" class="gal-admin-thumb" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%2290%22><rect width=%22120%22 height=%2290%22 fill=%22%23e2e8f0%22/></svg>'">
+      <label class="gal-upload-btn">
+        📸 Changer
+        <input type="file" accept="image/*" class="gal-file-input">
+      </label>
+      <input type="hidden" class="gal-src" value="${escAttr(photo.src||'')}">
+    </div>
+    <div class="gal-admin-fields">
+      <div class="field" style="margin-bottom:10px">
+        <label>Titre</label>
+        <input type="text" class="gal-title" value="${escAttr(photo.title||'')}">
+      </div>
+      <div class="field-row">
+        <div class="field" style="margin-bottom:0">
+          <label>Lieu · Date</label>
+          <input type="text" class="gal-loc" value="${escAttr(photo.loc||'')}">
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label>Catégorie</label>
+          <select class="gal-cat">${catOpts}</select>
+        </div>
+      </div>
+    </div>
+    <div class="gal-admin-actions">
+      <button class="move-btn move-up" title="Monter">▲</button>
+      <button class="move-btn move-down" title="Descendre">▼</button>
+      <button class="del-gal-btn" title="Supprimer">🗑</button>
+    </div>
+  `;
+
+  item.querySelector('.gal-file-input').addEventListener('change', function() {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      pendingGalleryPhotos.set(item, {file, dataUrl: e.target.result});
+      item.querySelector('.gal-admin-thumb').src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  item.querySelector('.move-up').addEventListener('click', function() {
+    const prev = item.previousElementSibling;
+    if (prev) prev.before(item);
+  });
+
+  item.querySelector('.move-down').addEventListener('click', function() {
+    const next = item.nextElementSibling;
+    if (next) next.after(item);
+  });
+
+  item.querySelector('.del-gal-btn').addEventListener('click', function() {
+    if (confirm('Supprimer cette photo de la galerie ?')) {
+      pendingGalleryPhotos.delete(item);
+      item.remove();
+    }
+  });
+
+  return item;
+}
+
+document.getElementById('addGalPhoto').addEventListener('click', function() {
+  const list = document.getElementById('galleryAdminList');
+  const newItem = createGalAdminItem({src:'', title:'', loc:'', cat:'chauffage'});
+  list.appendChild(newItem);
+  newItem.scrollIntoView({behavior:'smooth', block:'nearest'});
+  newItem.querySelector('.gal-title').focus();
+});
+
+/* ── Collecter toutes les valeurs ── */
+function collectFormValues() {
+  const keys = [
+    'phone','email','hours','addr-full','siret-text',
+    'hero-badge','typed-words','hero-desc',
+    'about-lead','about-body',
+    'feat1-title','feat1-desc','feat2-title','feat2-desc','feat3-title','feat3-desc',
+    'rge-title','rge-desc',
+    'certif1-title','certif1-desc','certif2-title','certif2-desc',
+    'certif3-title','certif3-desc','certif4-title','certif4-desc',
+    'zone-ext-text','footer-desc',
+    'stat1-val','stat1-lbl','stat2-val','stat2-lbl','stat3-val','stat3-lbl','stat4-val','stat4-lbl',
+    'svc1-title','svc1-desc','svc2-title','svc2-desc','svc3-title','svc3-desc',
+    'svc4-title','svc4-desc','svc5-title','svc5-desc','svc6-title','svc6-desc'
+  ];
+  const data = {};
+  keys.forEach(function(key) {
+    const el = document.getElementById('f-' + key);
+    if (el) data[key] = el.value;
+  });
+
+  /* Zone towns: newline → pipe */
+  const townsEl = document.getElementById('f-zone-primary-towns');
+  if (townsEl) {
+    data['zone-primary-towns'] = townsEl.value.split('\n')
+      .map(s => s.trim()).filter(Boolean).join('|');
+  }
+
+  /* About photo */
+  const aboutSrc = document.getElementById('about-photo-src');
+  if (aboutSrc) data['about-photo'] = aboutSrc.value;
+
+  /* Gallery array */
+  const galItems = document.querySelectorAll('.gal-admin-item');
+  data.gallery = [];
+  galItems.forEach(function(item) {
+    const src = item.querySelector('.gal-src').value;
+    const title = item.querySelector('.gal-title').value;
+    const loc = item.querySelector('.gal-loc').value;
+    const cat = item.querySelector('.gal-cat').value;
+    if (src || title) data.gallery.push({src, title, loc, cat});
+  });
+
+  return data;
+}
+
+/* ── Publier ── */
+document.getElementById('publishBtn').addEventListener('click', publishChanges);
+
+async function publishChanges() {
+  const cfg = getConfig();
+  if (!cfg.token || !cfg.owner || !cfg.repo) {
+    showToast('⚙️ Configurez d\'abord GitHub dans la section Configuration.', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('publishBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Publication...';
+
+  try {
+    showToast('<div class="spinner"></div> Envoi en cours…', 'info');
+
+    /* 1. Uploader la photo de profil si changée */
+    if (pendingAboutPhoto.file) {
+      const ext = pendingAboutPhoto.file.name.split('.').pop().toLowerCase();
+      const filename = 'uploads/about-' + Date.now() + '.' + ext;
+      await uploadFileToGitHub(cfg, filename, pendingAboutPhoto.dataUrl.split(',')[1]);
+      document.getElementById('about-photo-src').value = filename;
+      delete pendingAboutPhoto.file;
+      delete pendingAboutPhoto.dataUrl;
+    }
+
+    /* 2. Uploader les nouvelles photos de galerie */
+    for (const [domItem, {file, dataUrl}] of pendingGalleryPhotos) {
+      const ext = file.name.split('.').pop().toLowerCase();
+      const ts = Date.now();
+      const rand = Math.random().toString(36).slice(2, 7);
+      const filename = 'uploads/gal-' + ts + '-' + rand + '.' + ext;
+      await uploadFileToGitHub(cfg, filename, dataUrl.split(',')[1]);
+      domItem.querySelector('.gal-src').value = filename;
+    }
+    pendingGalleryPhotos.clear();
+
+    /* 3. Collecter toutes les valeurs */
+    const contentData = collectFormValues();
+
+    /* 4. Récupérer les SHA actuels */
+    const [sha, ratesSha] = await Promise.all([
+      getFileSha(cfg, 'content.json'),
+      getFileSha(cfg, 'rates.json')
+    ]);
+
+    /* 5. Mettre à jour content.json */
+    const newContent = JSON.stringify(contentData, null, 2);
+    const encoded = btoa(unescape(encodeURIComponent(newContent)));
+    await githubPut(cfg, 'content.json', encoded, sha, 'Admin: mise à jour du contenu');
+
+    /* 6. Mettre à jour rates.json */
+    const ratesData = collectRates();
+    const ratesContent = JSON.stringify(ratesData, null, 2);
+    const ratesEncoded = btoa(unescape(encodeURIComponent(ratesContent)));
+    await githubPut(cfg, 'rates.json', ratesEncoded, ratesSha, 'Admin: mise à jour des taux');
+
+    showToast('✅ Publié ! Le site sera mis à jour dans ~30 secondes.', 'success');
+  } catch(err) {
+    console.error(err);
+    showToast('❌ Erreur : ' + (err.message || 'vérifiez votre token GitHub.'), 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🚀 Publier';
+  }
+}
+
+/* ── GitHub API helpers ── */
+async function getFileSha(cfg, path) {
+  const url = 'https://api.github.com/repos/' + cfg.owner + '/' + cfg.repo + '/contents/' + path + '?ref=' + (cfg.branch || 'main');
+  const res = await fetch(url, {headers: ghHeaders(cfg)});
+  if (!res.ok) return undefined;
+  const data = await res.json();
+  return data.sha;
+}
+
+async function githubPut(cfg, path, contentB64, sha, message) {
+  const url = 'https://api.github.com/repos/' + cfg.owner + '/' + cfg.repo + '/contents/' + path;
+  const body = {message, content: contentB64, branch: cfg.branch || 'main'};
+  if (sha) body.sha = sha;
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: Object.assign({'Content-Type': 'application/json'}, ghHeaders(cfg)),
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) { const err = await res.json(); throw new Error(err.message || res.statusText); }
+  return res.json();
+}
+
+async function uploadFileToGitHub(cfg, path, base64Content) {
+  const sha = await getFileSha(cfg, path);
+  return githubPut(cfg, path, base64Content, sha, 'Admin: upload photo');
+}
+
+function ghHeaders(cfg) {
+  return {Authorization: 'token ' + cfg.token, Accept: 'application/vnd.github.v3+json'};
+}
+
+/* ── Rates section ── */
+const WORKS_META = [
+  {id:'pac_eau',  name:'PAC air/eau'},
+  {id:'pac_air',  name:'PAC air/air (clim réversible)'},
+  {id:'geo',      name:'PAC géothermique'},
+  {id:'bois',     name:'Chaudière bois/granulés'},
+  {id:'gaz',      name:'Chaudière gaz THPE'},
+  {id:'fioul',    name:'Remplacement chaudière fioul'},
+  {id:'cet',      name:'Chauffe-eau thermodynamique'},
+  {id:'fenetres', name:'Fenêtres / vitrage'}
+];
+
+const DEFAULT_Z2 = {
+  1:[17009,21805,30549,45845], 2:[24875,31903,44679,67089],
+  3:[29917,38349,53730,80716], 4:[34948,44786,62765,94358],
+  5:[40002,51281,71854,107985]
+};
+const DEFAULT_Z2X = [5045, 6462, 9049, 13553];
+const DEFAULT_WORKS = [
+  {id:'pac_eau',  taux:[0.75,0.50,0.40,0.20], plafond:12000, cee:2000},
+  {id:'pac_air',  taux:[0.60,0.40,0.30,0.15], plafond:6000,  cee:500 },
+  {id:'geo',      taux:[0.75,0.50,0.40,0.20], plafond:15000, cee:2500},
+  {id:'bois',     taux:[0.75,0.50,0.40,0.20], plafond:12000, cee:2000},
+  {id:'gaz',      taux:[0.25,0.15,0.10,0.00], plafond:8000,  cee:700 },
+  {id:'fioul',    taux:[0.75,0.50,0.40,0.20], plafond:10000, cee:2500},
+  {id:'cet',      taux:[0.75,0.50,0.40,0.20], plafond:3000,  cee:400 },
+  {id:'fenetres', taux:[0.40,0.30,0.15,0.07], plafond:2000,  cee:300 }
+];
+
+function buildZ2Table(z2, z2x) {
+  const tbody = document.getElementById('rates-z2-body');
+  if (!tbody) return;
+  const labels = ['1 personne','2 personnes','3 personnes','4 personnes','5 personnes'];
+  tbody.innerHTML = [1,2,3,4,5].map(n => {
+    const row = z2[n] || DEFAULT_Z2[n];
+    const cells = row.map((v, i) =>
+      `<td><input type="number" class="z2-cell" data-n="${n}" data-i="${i}" value="${v}" min="0" step="1"></td>`
+    ).join('');
+    return `<tr><td>${labels[n-1]}</td>${cells}</tr>`;
+  }).join('');
+
+  /* z2x row */
+  const z2xRow = document.getElementById('rates-z2x-row');
+  if (z2xRow) {
+    const lbls = ['🔵 Très modeste','🟡 Modeste','🟣 Intermédiaire','🌸 Supérieur'];
+    z2xRow.innerHTML = (z2x || DEFAULT_Z2X).map((v, i) =>
+      `<div class="z2x-item"><label>${lbls[i]}</label><input type="number" class="z2x-cell" data-i="${i}" value="${v}" min="0" step="1"></div>`
+    ).join('');
+  }
+}
+
+function buildWorksRatesTable(works) {
+  const wrap = document.getElementById('rates-works-wrap');
+  if (!wrap) return;
+  wrap.innerHTML = WORKS_META.map(wm => {
+    const wr = (works || DEFAULT_WORKS).find(w => w.id === wm.id) || {taux:[0.75,0.5,0.4,0.2],plafond:10000,cee:1000};
+    const [b,j,v,r] = wr.taux.map(t => Math.round(t * 100));
+    return `
+      <div class="rates-work-block" data-wid="${wm.id}">
+        <div class="rates-work-name">${wm.name}</div>
+        <div class="rates-work-grid">
+          <div class="field"><label>🔵 Taux bleu %</label><input type="number" class="rw-taux" data-idx="0" value="${b}" min="0" max="100" step="5"></div>
+          <div class="field"><label>🟡 Taux jaune %</label><input type="number" class="rw-taux" data-idx="1" value="${j}" min="0" max="100" step="5"></div>
+          <div class="field"><label>🟣 Taux violet %</label><input type="number" class="rw-taux" data-idx="2" value="${v}" min="0" max="100" step="5"></div>
+          <div class="field"><label>🌸 Taux rose %</label><input type="number" class="rw-taux" data-idx="3" value="${r}" min="0" max="100" step="5"></div>
+          <div class="field"><label>Plafond HT (€)</label><input type="number" class="rw-plafond" value="${wr.plafond}" min="0" step="500"></div>
+          <div class="field"><label>CEE indicatif (€)</label><input type="number" class="rw-cee" value="${wr.cee}" min="0" step="100"></div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function loadRatesContent() {
+  fetch('rates.json?_=' + Date.now())
+    .then(r => r.ok ? r.json() : null)
+    .then(function(data) {
+      const d = data || {};
+      if (d.updated) document.getElementById('rates-updated').value = d.updated;
+      buildZ2Table(d.z2 || DEFAULT_Z2, d.z2x || DEFAULT_Z2X);
+      buildWorksRatesTable(d.works || DEFAULT_WORKS);
+    })
+    .catch(function() {
+      buildZ2Table(DEFAULT_Z2, DEFAULT_Z2X);
+      buildWorksRatesTable(DEFAULT_WORKS);
+    });
+}
+
+function collectRates() {
+  const rates = {};
+
+  const dateEl = document.getElementById('rates-updated');
+  if (dateEl) rates.updated = dateEl.value;
+
+  /* Z2 thresholds */
+  rates.z2 = {};
+  [1,2,3,4,5].forEach(n => {
+    const cells = document.querySelectorAll(`.z2-cell[data-n="${n}"]`);
+    rates.z2[n] = Array.from(cells).map(el => parseInt(el.value) || 0);
+  });
+
+  /* Z2x per-person supplements */
+  rates.z2x = Array.from(document.querySelectorAll('.z2x-cell')).map(el => parseInt(el.value) || 0);
+
+  /* Works */
+  rates.works = [];
+  document.querySelectorAll('.rates-work-block').forEach(function(block) {
+    const id = block.dataset.wid;
+    const taux = Array.from(block.querySelectorAll('.rw-taux')).map(el => parseFloat(el.value) / 100);
+    const plafond = parseInt(block.querySelector('.rw-plafond').value) || 0;
+    const cee     = parseInt(block.querySelector('.rw-cee').value) || 0;
+    rates.works.push({id, taux, plafond, cee});
+  });
+
+  /* Keep Z1 from existing rates.json (not editable in admin — IDF only) */
+  return rates;
+}
+
+/* ── Toast ── */
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.className = 'show ' + (type || 'info');
+  t.innerHTML = msg;
+  if (type !== 'info') setTimeout(() => { t.className = ''; }, 5000);
+}
+
+/* ── Vérification du statut de mise à jour automatique ── */
+function checkRatesStatus() {
+  fetch('rates-status.json?_=' + Date.now())
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(data) {
+      if (!data || data.status !== 'error') return;
+      var banner = document.getElementById('rates-error-banner');
+      var msgEl  = document.getElementById('reb-msg');
+      var dateEl = document.getElementById('reb-date');
+      if (msgEl && data.message) msgEl.textContent = data.message;
+      if (dateEl && data.checked) dateEl.textContent = 'Dernière vérification automatique : ' + data.checked;
+      banner.classList.add('show');
+      document.body.classList.add('has-rates-error');
+    })
+    .catch(function() {});
+}
+
+/* ── Init ── */
+function initPanel() {
+  loadConfig();
+  loadCurrentContent();
+  loadRatesContent();
+  checkRatesStatus();
+}
+
+if (checkAuth()) {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminPanel').style.display = 'block';
+  initPanel();
+}
+</script>
+</body>
+</html>
