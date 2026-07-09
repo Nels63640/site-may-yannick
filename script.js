@@ -17,11 +17,26 @@ const WEB3FORMS_ACCESS_KEY = 'VOTRE_CLE_WEB3FORMS';  // ← À remplir (clé Web
 const DESTINATAIRE_EMAIL   = 'yannickmay@orange.fr'; // Email de Yannick
 
 /* ────────────────────────────── Preloader ──────────────────────────────── */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('preloader').classList.add('hidden');
-  }, 1900);
-});
+/* Se cache dès que la page est interactive, SANS attendre le chargement de
+   toutes les images (sinon écran bloqué sur mobile). Filet de sécurité à 4s. */
+(function () {
+  var hidden = false;
+  function hidePreloader() {
+    if (hidden) return;
+    hidden = true;
+    var p = document.getElementById('preloader');
+    if (p) p.classList.add('hidden');
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(hidePreloader, 1200);
+    });
+  } else {
+    setTimeout(hidePreloader, 1200);
+  }
+  window.addEventListener('load', hidePreloader);
+  setTimeout(hidePreloader, 4000); // failsafe absolu
+})();
 
 /* ──────────────────────────── Header scroll ────────────────────────────── */
 const header = document.getElementById('header');
