@@ -1,5 +1,5 @@
 {
   "status": "error",
-  "checked": "2026-09-01",
+  "checked": "2026-10-01",
   "message": "Erreur réseau lors de la connexion à l'ANAH : 404 Client Error: Not Found for url: https://www.anah.gouv.fr/proprietaires/vos-aides/les-conditions-de-ressources"
 }
